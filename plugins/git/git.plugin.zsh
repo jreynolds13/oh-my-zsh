@@ -34,24 +34,35 @@ alias g='git'
 
 alias ga='git add'
 alias gaa='git add --all'
-alias gapa='git add --patch'
+alias gap='git add --patch'
 alias gau='git add --update'
 alias gav='git add --verbose'
-alias gap='git apply'
 
 alias gb='git branch'
-alias gba='git branch -a'
+alias gba='git --no-pager branch -a'
 alias gbd='git branch -d'
+alias gbn='git pull origin && git checkout -b'
+alias gbp='git fetch origin --prune'
 alias gbda='git branch --no-color --merged | command grep -vE "^(\*|\s*(master|develop|dev)\s*$)" | command xargs -n 1 git branch -d'
+alias gbdm=' git branch --merged | egrep -v "(^\*|master|staging)" | xargs git branch -d && gbp'
 alias gbD='git branch -D'
 alias gbl='git blame -b -w'
 alias gbnm='git branch --no-merged'
-alias gbr='git branch --remote'
+alias gbr='git --no-pager branch --remotes'
 alias gbs='git bisect'
 alias gbsb='git bisect bad'
 alias gbsg='git bisect good'
 alias gbsr='git bisect reset'
 alias gbss='git bisect start'
+
+alias gpo="  git pull origin"
+alias gpom=" git pull origin master"
+alias gpos=" git pull origin staging"
+alias gPom=" git push origin master"
+alias gPos=" git push origin staging"
+alias gPo="  git push origin -u"
+alias gPf="  git push fury"
+alias gPfm=" git push fury master"
 
 alias gc='git commit -v'
 alias gc!='git commit -v --amend'
@@ -67,9 +78,11 @@ alias gcf='git config --list'
 alias gcl='git clone --recurse-submodules'
 alias gclean='git clean -id'
 alias gpristine='git reset --hard && git clean -dfx'
-alias gcm='git checkout master'
-alias gcd='git checkout develop'
-alias gcmsg='git commit -m'
+# alias gcm='git checkout master'
+# alias gcd='git checkout develop'
+alias gcom=" git checkout master"
+alias gcos=" git checkout staging"
+alias gcm='git commit -m'
 alias gco='git checkout'
 alias gcount='git shortlog -sn'
 alias gcp='git cherry-pick'
@@ -77,7 +90,7 @@ alias gcpa='git cherry-pick --abort'
 alias gcpc='git cherry-pick --continue'
 alias gcs='git commit -S'
 
-alias gd='git diff'
+alias gd='clear && git diff -F'
 alias gdca='git diff --cached'
 alias gdcw='git diff --cached --word-diff'
 alias gdct='git describe --tags $(git rev-list --tags --max-count=1)'
@@ -159,7 +172,7 @@ alias git-svn-dcommit-push='git svn dcommit && git push github master:svntrunk'
 alias gk='\gitk --all --branches'
 alias gke='\gitk --all $(git log -g --pretty=%h)'
 
-alias gl='git pull'
+alias gl="git log --pretty=format:'%C(yellow)%h%C(reset) - %an [%C(green)%ar%C(reset)] %s'"
 alias glg='git log --stat'
 alias glgp='git log --stat -p'
 alias glgg='git log --graph'
@@ -174,13 +187,16 @@ alias glola="git log --graph --pretty='%Cred%h%Creset -%C(auto)%d%Creset %s %Cgr
 alias glog='git log --oneline --decorate --graph'
 alias gloga='git log --oneline --decorate --graph --all'
 alias glp="_git_log_prettily"
+alias glm="  git log --author='$(git config user.name)' --pretty=format:'%C(yellow)%h%C(reset) [%C(green)%ar%C(reset)] %s'"
 
-alias gm='git merge'
-alias gmom='git merge origin/master'
-alias gmt='git mergetool --no-prompt'
+alias gm='    git merge'
+alias gms='   git merge staging'
+alias gmm='   git merge master'
+alias gmom='  git merge origin/master'
+alias gmt='   git mergetool --no-prompt'
 alias gmtvim='git mergetool --no-prompt --tool=vimdiff'
-alias gmum='git merge upstream/master'
-alias gma='git merge --abort'
+alias gmum='  git merge upstream/master'
+alias gma='   git merge --abort'
 
 alias gp='git push'
 alias gpd='git push --dry-run'
@@ -199,7 +215,6 @@ alias grbd='git rebase develop'
 alias grbi='git rebase -i'
 alias grbm='git rebase master'
 alias grbs='git rebase --skip'
-alias grev='git revert'
 alias grh='git reset'
 alias grhh='git reset --hard'
 alias groh='git reset origin/$(git_current_branch) --hard'
@@ -220,7 +235,7 @@ alias gsi='git submodule init'
 alias gsps='git show --pretty=short --show-signature'
 alias gsr='git svn rebase'
 alias gss='git status -s'
-alias gst='git status'
+alias gs='git status'
 
 # use the default stash push on git 2.13 and newer
 autoload -Uz is-at-least
@@ -228,7 +243,7 @@ is-at-least 2.13 "$(git --version 2>/dev/null | awk '{print $3}')" \
   && alias gsta='git stash push' \
   || alias gsta='git stash save'
 
-alias gstaa='git stash apply'
+alias gsa='git stash apply'
 alias gstc='git stash clear'
 alias gstd='git stash drop'
 alias gstl='git stash list'
